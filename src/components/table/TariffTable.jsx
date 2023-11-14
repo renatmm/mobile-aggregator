@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 
 import ValueSlider from '../value-slider/ValueSlider';
+import Spinner from '../spinner/Spinner';
 
-import {Table, Tbody, Tr, Td, TableCaption, TableContainer, Select, Button } from '@chakra-ui/react'
+import {Table, Tbody, Tr, Td, TableCaption, TableContainer, Select, Button, Grid, GridItem} from '@chakra-ui/react'
+import { Card, CardHeader, CardBody, CardFooter, Heading, Image, Stack, Text, Divider, ButtonGroup} from '@chakra-ui/react'
 
 
   
@@ -17,7 +19,10 @@ export default function TariffTable() {
   const [sms, setSms] = useState('');
   const [gb, setGb] = useState('');
 
+  const [loading, setLoading] = useState(false);
+
   const onRequest = () => {
+    setLoading(true)
     // fetch('https://dummyjson.com/products/', {
     //   method: "POST", // *GET, POST, PUT, DELETE, etc.
     //   mode: "cors", // no-cors, *cors, same-origin
@@ -38,7 +43,12 @@ export default function TariffTable() {
     .then(res => res.json())
     .then(json => {
       setData(json);
+      setTimeout(timeout, 2000);
     });
+  }
+
+  const timeout = () => {
+    setLoading(false)
   }
 
   const changeMinutes = (value) => {
@@ -104,26 +114,46 @@ export default function TariffTable() {
         </Table>
       </TableContainer>
 
-      <TableContainer maxWidth="1600px" m="0 auto" mt="100px" borderRadius="20px">
-        <Table variant='simple'>
-          <Tbody>
-            {data.length === 0 ? null : 
-               data.products.map((item) => {
-                return (
-                  <>
-                    <Tr>
-                      <Td>{item.title}</Td>
-                      <Td>{item.brand}</Td>
-                      <Td>{item.category}</Td>
-                      <Td>{item.price}</Td>
-                    </Tr>
-                  </>
-                );
+
+      <Grid templateColumns='repeat(4, 1fr)' gap={10} p={20}>
+        {loading ? <Spinner/> : data.length === 0 ? null : 
+                data.products.map((item) => {
+                  return (
+                    <>
+                      <Card maxW='s'>
+                        <CardBody>
+                          <Image
+                            src={item.images[0]}
+                            alt='Green double couch with wooden legs'
+                            borderRadius='lg'
+                          />
+                          <Stack mt='' spacing='3'>
+                            <Heading size='md'>{item.title}</Heading>
+                            <Text>
+                              {item.description}
+                            </Text>
+                            <Text color='blue.600' fontSize='2xl'>
+                              {item.price}$
+                            </Text>
+                          </Stack>
+                        </CardBody>
+                        <Divider />
+                        <CardFooter>
+                          <ButtonGroup spacing='2'>
+                            <Button variant='solid' colorScheme='blue'>
+                              Buy now
+                            </Button>
+                            <Button variant='ghost' colorScheme='blue'>
+                              Add to cart
+                            </Button>
+                          </ButtonGroup>
+                        </CardFooter>
+                      </Card>
+                    </>
+                  );
               })
-            }
-          </Tbody>
-        </Table>
-      </TableContainer>
+          }
+      </Grid>
     </>
   );
 }
