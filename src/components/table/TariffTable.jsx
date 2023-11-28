@@ -43,19 +43,15 @@ export default function TariffTable() {
     .then(res => res.json())
     .then(json => {
       setData(json);
-      setTimeout(timeout, 2000);
+      setLoading(false);
     });
-  }
-
-  const timeout = () => {
-    setLoading(false)
   }
 
   const changeMinutes = (value) => {
     setMinutes(value)
   }
   
-  const changeSms= (value) => {
+  const changeSms = (value) => {
     setSms(value)
   }
 
@@ -65,7 +61,7 @@ export default function TariffTable() {
 
   return(
     <>
-      <TableContainer maxWidth="1000px" m="0 auto" mt="100px" border="1px lightGray solid" borderRadius="20px">
+      <TableContainer maxWidth="1000px" m="0 auto" mt="100px" border="3px white solid" boxShadow="2px 2px 10px white" borderRadius="20px">
         <Table variant='simple'>
           <TableCaption>
             <Button onClick={onRequest} colorScheme='blue'>Подбор тарифа</Button>

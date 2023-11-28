@@ -1,6 +1,4 @@
-
-/* 
-body{
+/* body{
   font-size: 20px;
   background-image: url(https://sun9-11.userapi.com/impg/-Q0UlLwYOec10Fm0tMqDoNLvWc4efHOzfAdxnQ/nSfQ3QkgSkM.jpg?size=1440x1920&quality=96&sign=721688f415b0814a32882c13122facb6&type=album)!important;
   background-repeat: repeat-x !important;
@@ -9,3 +7,8 @@ body{
   color: #fff !important;
 
 } */
+
+body{
+  background: rgb(132,205,255);
+  background: linear-gradient(90deg, rgba(132,205,255,1) 0%, rgba(235,168,255,1) 100%) !important;
+}
