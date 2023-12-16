@@ -6,7 +6,6 @@ import {ChakraProvider, Table, Tbody, Tr, Td, TableCaption, TableContainer, Sele
 import '../../style.css';
 
 export default function App() {
-
   const [data, setData] = useState([]);
   const [region, setRegion] = useState('');
   const [operator, setOperator] = useState('');
