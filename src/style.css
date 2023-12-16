@@ -5,10 +5,9 @@
 
   background-size: 100% !important;
   color: #fff !important;
-
 } */
 
 body{
-  background: rgb(132,205,255);
+  background: rgb(132,205,255) !important;
   background: linear-gradient(90deg, rgba(132,205,255,1) 0%, rgba(235,168,255,1) 100%) !important;
 }
