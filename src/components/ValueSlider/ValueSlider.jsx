@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { Slider, SliderTrack, SliderFilledTrack, SliderThumb, SliderMark, Tooltip } from '@chakra-ui/react'
 
-export default function ValueSlider({change, maxValue}) {
+export default function ValueSlider({valueChange, maxValue}) {
 
   const [sliderValue, setSliderValue] = useState(5)
   const [showTooltip, setShowTooltip] = useState(false)
 
   const customOnChange = (v) => {
     setSliderValue(v)
-    change(v)
+    valueChange(v)
   }
 
   return (

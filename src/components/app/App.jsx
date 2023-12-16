@@ -1,9 +1,8 @@
 import {useState} from 'react';
-import {ChakraProvider} from "@chakra-ui/react";
 import ValueSlider from '../ValueSlider/ValueSlider';
 import Spinner from '../Spinner/Spinner'
 import TariffTableList from '../TableList/TableList';
-import {Table, Tbody, Tr, Td, TableCaption, TableContainer, Select, Button} from '@chakra-ui/react'
+import {ChakraProvider, Table, Tbody, Tr, Td, TableCaption, TableContainer, Select, Button} from '@chakra-ui/react'
 import '../../style.css';
 
 export default function App() {
@@ -11,13 +10,10 @@ export default function App() {
   const [data, setData] = useState([]);
   const [region, setRegion] = useState('');
   const [operator, setOperator] = useState('');
-
   const [minutes, setMinutes] = useState('');
   const [sms, setSms] = useState('');
   const [gb, setGb] = useState('');
-
   const [loading, setLoading] = useState(false);
-
 
   const onRequest = () => {
     setLoading(true)
@@ -45,16 +41,8 @@ export default function App() {
     });
   }
 
-  const changeMinutes = (value) => {
-    setMinutes(value)
-  }
-  
-  const changeSms = (value) => {
-    setSms(value)
-  }
-
-  const changeGb = (value) => {
-    setGb(value)
+  const valueChange = (setValue) => (value) => {
+    setValue(value);
   }
 
   return(
@@ -89,19 +77,19 @@ export default function App() {
             <Tr>
               <Td>Минут в мес.:</Td>
               <Td>
-                <ValueSlider change={changeMinutes} maxValue={5000}/>
+              <ValueSlider valueChange={valueChange(setMinutes)} maxValue={5000}/>
               </Td>
             </Tr>
             <Tr>
               <Td>SMS в мес.:</Td>
               <Td>
-              <ValueSlider change={changeSms} maxValue={500}/>
+              <ValueSlider valueChange={valueChange(setSms)} maxValue={500}/>
               </Td>
             </Tr>
             <Tr>
               <Td>Интернет Gb в мес.:</Td>
               <Td>
-              <ValueSlider change={changeGb} maxValue={500}/>
+              <ValueSlider valueChange={valueChange(setGb)} maxValue={500}/>
               </Td>
             </Tr>
           </Tbody>
@@ -109,7 +97,6 @@ export default function App() {
       </TableContainer>
 
       {loading ? <Spinner/> : (data.length !== 0 && <TariffTableList data={data}/>)}
-      {/* {data.length > 0 ? 'заполнено' : 'не заполнено' } */}
     
     </ChakraProvider>
   );
