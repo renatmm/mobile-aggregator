@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { ChakraProvider } from "@chakra-ui/react";
+import {useState} from 'react';
+import {ChakraProvider} from "@chakra-ui/react";
 import ValueSlider from '../ValueSlider/ValueSlider';
 import Spinner from '../Spinner/Spinner'
 import TariffTableList from '../TableList/TableList';
