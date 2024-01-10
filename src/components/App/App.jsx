@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import { getData, postData } from '../../Service/Service';
 import ValueSlider from '../ValueSlider/ValueSlider';
 import Spinner from '../Spinner/Spinner'
 import TariffTableList from '../TableList/TableList';
@@ -15,29 +16,29 @@ export default function App() {
   const [loading, setLoading] = useState(false);
 
   const onRequest = () => {
-    setLoading(true)
-    // fetch('https://dummyjson.com/products/', {
-    //   method: "POST", // *GET, POST, PUT, DELETE, etc.
-    //   mode: "cors", // no-cors, *cors, same-origin
-    //   cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-    //   credentials: "same-origin", // include, *same-origin, omit
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     // 'Content-Type': 'application/x-www-form-urlencoded',
-    //   },
-    // body:{
-    //   "operator": JSON.stringify(operator),
-    //   "region": JSON.stringify(region),
-    //   "minutes": JSON.stringify(minutes),
-    //   "sms": JSON.stringify(sms),
-    //   "gb": JSON.stringify(gb)
-    // }})
-  fetch('https://dummyjson.com/products/')
-    .then(res => res.json())
-    .then(json => {
-      setData(json);
+    handlePostData()
+    handleFetchData()
+  } 
+
+  const handleFetchData  = async () => {
+    setLoading(true);
+    try {
+      const response = (await getData()).data;
+      setData(response);
       setLoading(false);
-    });
+    } catch (error) {
+      console.error('An error occurred while fetching data:', error);
+    }
+  }
+  
+  const handlePostData  = async () => {
+    try {
+      const obj = { data, region, operator, minutes, sms, gb }
+      const response = (await postData(obj));
+      console.log(response.data)
+    } catch (error) {
+      console.error('An error occurred while fetching data:', error);
+    }
   }
 
   const valueChange = (setValue) => (value) => {

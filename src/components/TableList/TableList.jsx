@@ -1,13 +1,13 @@
 import TableItem from '../TableItem/TableItem'
 import {Grid} from '@chakra-ui/react'
 
-const TariffTableList = ({data}) => {
+const TableList = ({ data }) => {
     return (
         <Grid templateColumns='repeat(4, 1fr)' gap={10} p={20}>
           { 
-            data.products.map((item) => {
+            data.products.map((item, index) => {
               return (
-                <TableItem item={item}/>
+                <TableItem key={index} item={item}/>
               );
             })
           }
@@ -15,4 +15,4 @@ const TariffTableList = ({data}) => {
     );
 }
  
-export default TariffTableList;
+export default TableList;
